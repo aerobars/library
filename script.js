@@ -1,3 +1,6 @@
+const Book1 = new Book("The Hobbit", "JRR Tolkein", "1", "read");
+const Book2 = new Book("test", "test", "test", "test");
+
 const myLibrary = [Book1, Book2];
 
 function Book(title, author, pages, read) {
@@ -5,7 +8,7 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.info = function(){
+  this.info = () => {
     return (
       `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`
     )
@@ -19,8 +22,8 @@ myLibrary.push(newBook)
 }
 
 function showLib() {
-  myLibrary.forEach(console.log(this.info)) 
+  myLibrary.forEach((book) => console.log(book.info())) 
 }
 
-let Book1 = new Book("The Hobbit", "JRR Tolkein", 1, read);
-let Book2 = new Book(test, test, test, test);
+const test = document.querySelector("button")
+test.addEventListener("click", showLib)
