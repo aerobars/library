@@ -1,5 +1,5 @@
-const Book1 = new Book("The Hobbit", "JRR Tolkein", "1", "read");
-const Book2 = new Book("test", "test", "test", "test");
+//const Book1 = new Book("The Hobbit", "JRR Tolkein", "1", "read");
+//const Book2 = new Book("test", "test", "test", "test");
 
 const myLibrary = [Book1, Book2];
 
@@ -15,15 +15,20 @@ function Book(title, author, pages, read) {
   }
 }
 
+// take params, create a book then store it in the array
 function addBookToLibrary(title, author, pages, read) {
-  // take params, create a book then store it in the array
-const newBook = new Book(title, author, pages, read);
-myLibrary.push(newBook)
+  
+  const newBook = new Book(title, author, pages, read);
+  myLibrary.push(newBook)
 }
 
-function showLib() {
-  myLibrary.forEach((book) => console.log(book.info())) 
+function bookDisplay() {
+  const bookDisplay = document.createElement("div");
+  bookDisplay.classList.add("card");
+
 }
+
+//myLibrary.forEach((book) => );
 
 const test = document.querySelector("button")
-test.addEventListener("click", showLib)
+test.addEventListener("click", bookDisplay);
