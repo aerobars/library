@@ -3,11 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
   <title>Library</title>
 </head>
 <body>
-  <button>Display Library</button>
+  <button>New Book</button>
   <div class="container"></div>
+  <dialog>
+    <legend>Add a book to your library</legend>
+    <form method="dialog">
+        <label for="book-title">Book title:</label>
+        <input type="text" name="book-title" id="book-title" required>
+        <p>
+          <label for="author-name">Author's name:</label>
+          <input type="text" name="author-name" id="author-name" required>
+        </p>
+        <p>
+          <label for="page-total">Number of pages:</label>
+          <input type="number" name="page-total" id="page-total" required>
+        </p>
+        <p>
+          <label for="status-read">Read</label>
+          <input type="radio" name="read-status" id="status-read" value="Read" checked required>
+          <label for="status-unread">Unread</label>
+          <input type="radio" name="read-status" id="status-unread" value="Unread" required>
+        </p>
+      <button id="submit-btn">Submit</button>
+      <button type="reset">Clear</button>
+    </form>
+  </dialog>
 </body>
 </html>

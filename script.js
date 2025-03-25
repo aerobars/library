@@ -1,7 +1,7 @@
-//const Book1 = new Book("The Hobbit", "JRR Tolkein", "1", "read");
-//const Book2 = new Book("test", "test", "test", "test");
+const Book1 = new Book("The Hobbit", "JRR Tolkein", "1", "read");
+const Book2 = new Book("test", "test", "test", "test");
 
-const myLibrary = [];
+const myLibrary = [Book1, Book2];
 const container = document.querySelector(".container")
 
 function Book(title, author, pages, read) {
@@ -22,7 +22,7 @@ function addBookToLibrary(title, author, pages, read) {
   myLibrary.push(newBook)
 }
 
-function bookDisplay(bookObj) {
+function bookCard(bookObj) {
   const bookDisplay = document.createElement("div");
   bookDisplay.classList.add("card");
   container.appendChild(bookDisplay)
@@ -44,11 +44,17 @@ function bookDisplay(bookObj) {
 
   const read = document.createElement("div");
   read.classList.add("read");
-  read.textContent = readStatus;
+  read.textContent = bookObj.readStatus;
   bookDisplay.appendChild(read);
 }
 
-//myLibrary.forEach((book) => );
-
+function showBooks() {
+  myLibrary.forEach((book) => bookCard(book));
+}
 const test = document.querySelector("button")
-test.addEventListener("click", bookDisplay);
+test.addEventListener("click", dialogTest);
+
+function dialogTest() {
+  const dialog = document.querySelector("dialog");
+  dialog.showModal();
+}
