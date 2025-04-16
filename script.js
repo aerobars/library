@@ -8,17 +8,18 @@ const newBookBtn = document.getElementById("new-btn");
 const submitBookBtn = document.getElementById("submit-btn");
 const bookInput = document.getElementById("input-dialog");
 const viewBooks = document.getElementById("show-books");
+const clearBooksBtn = document.getElementById("clear-books");
 
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.readStatus = read;
-  this.info = () => {
-    return (
-      `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`
-    )
-  }
+  //this.info = () => {
+    //return (
+      //`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`
+    //)
+  //}
 }
 
 
@@ -29,6 +30,13 @@ function openDialog() {
   dialog.showModal();
 }
 
+clearBooksBtn.addEventListener("click", clearBooks);
+
+function clearBooks() {
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+}
 submitBookBtn.addEventListener("click",(e) => {
   const bookTitle = document.getElementById("book-title");
   const bookAuthor = document.getElementById("book-author");
@@ -37,7 +45,6 @@ submitBookBtn.addEventListener("click",(e) => {
   e.preventDefault();
   addBookToLibrary(bookTitle.value, bookAuthor.value, pageTotal.value, readStatus.value);
   bookInput.close();
-  console.log(myLibrary);
 })
 
 // take params, create a book then store it in the array
@@ -49,35 +56,47 @@ function addBookToLibrary(title, author, pages, read) {
 viewBooks.addEventListener("click", showBooks);
 
 function showBooks() {
-  myLibrary.forEach((book) => bookCard(book));
-}
+  myLibrary.forEach((book, index) => {
 
-function bookCard(bookObj) {
   const bookDisplay = document.createElement("div");
   bookDisplay.classList.add("card");
+  bookDisplay.dataset.bookId = index;
   container.appendChild(bookDisplay)
 
   const title = document.createElement("div");
   title.classList.add("title");
-  title.textContent = bookObj.title;
+  title.textContent = book.title;
+  title.dataset.bookId = index;
   bookDisplay.appendChild(title);
 
   const author = document.createElement("div");
   author.classList.add("author");
-  author.textContent = bookObj.author;
+  author.textContent = book.author;
+  author.dataset.bookId = index;
   bookDisplay.appendChild(author);
 
   const pages = document.createElement("div");
   pages.classList.add("pages");
-  pages.textContent = bookObj.pages + " pages";
+  pages.textContent = book.pages + " pages";
+  pages.dataset.bookId = index;
   bookDisplay.appendChild(pages);
 
   const read = document.createElement("div");
   read.classList.add("read");
-  read.textContent = bookObj.readStatus;
+  read.textContent = book.readStatus;
+  read.dataset.bookId = index;
   bookDisplay.appendChild(read);
 
   const remove = document.createElement("button");
   remove.textContent = "Remove Book";
+  remove.dataset.bookId = index;
   bookDisplay.appendChild(remove);
+  remove.addEventListener("click", () => {
+    myLibrary.splice(index, 1)
+    while (bookDisplay.firstChild) {
+      bookDisplay.removeChild(bookDisplay.firstChild)
+      }
+    bookDisplay.remove();
+    })
+  })
 }
