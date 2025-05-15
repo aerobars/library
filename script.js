@@ -15,13 +15,12 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.readStatus = read;
-  //this.info = () => {
-    //return (
-      //`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`
-    //)
-  //}
+  this.id = crypto.randomUUID()
 }
 
+Book.prototype.readStatusUpdate = (book) => {
+  return book.readStatus == "Read" ? "Unread" : "Read" 
+}
 
 newBookBtn.addEventListener("click", openDialog);
 
@@ -60,36 +59,45 @@ function showBooks() {
 
   const bookDisplay = document.createElement("div");
   bookDisplay.classList.add("card");
-  bookDisplay.dataset.bookId = index;
+  bookDisplay.dataset.bookId = book.id;
   container.appendChild(bookDisplay)
 
   const title = document.createElement("div");
   title.classList.add("title");
   title.textContent = book.title;
-  title.dataset.bookId = index;
+  title.dataset.bookId = book.id;
   bookDisplay.appendChild(title);
 
   const author = document.createElement("div");
   author.classList.add("author");
   author.textContent = book.author;
-  author.dataset.bookId = index;
+  author.dataset.bookId = book.id;
   bookDisplay.appendChild(author);
 
   const pages = document.createElement("div");
   pages.classList.add("pages");
   pages.textContent = book.pages + " pages";
-  pages.dataset.bookId = index;
+  pages.dataset.bookId = book.id;
   bookDisplay.appendChild(pages);
 
   const read = document.createElement("div");
   read.classList.add("read");
   read.textContent = book.readStatus;
-  read.dataset.bookId = index;
+  read.dataset.bookId = book.id;
   bookDisplay.appendChild(read);
+
+  const readUpdate = document.createElement("button");
+  readUpdate.textContent = "Update Read Status";
+  readUpdate.bookId = book.id;
+  bookDisplay.appendChild(readUpdate);
+  readUpdate.addEventListener("click", () => {
+    book.readStatus = book.readStatusUpdate(book);
+    read.textContent = book.readStatus;
+  })
 
   const remove = document.createElement("button");
   remove.textContent = "Remove Book";
-  remove.dataset.bookId = index;
+  remove.dataset.bookId = book.id;
   bookDisplay.appendChild(remove);
   remove.addEventListener("click", () => {
     myLibrary.splice(index, 1)
